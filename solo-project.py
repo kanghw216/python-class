@@ -19,9 +19,20 @@ if not tasks:
 else:
   # 할 일 순서 섞기
   r.shuffle(tasks)
-  print(f"오늘의 할 일의 순서는")
-  for i in range(0, len(tasks)):
-    print(f"{i+1}. {tasks[i]}")
+
+
+  available_hours = list(range(9, 22))  # 9시부터 21시까지
+    
+  if len(tasks) > len(available_hours):
+        # 할 일이 너무 많으면 시간대를 24시간으로 연장
+    available_hours = list(range(0, 24))
+  selected_hours = r.sample(available_hours, len(tasks))
+  selected_hours.sort()
+  print("\n오늘의 할 일 일정은")
+  for i in range(len(tasks)):
+      
+    minute = r.choice(["00", "30"])
+    print(f"- [{selected_hours[i]}:{minute}] {tasks[i]}")
   print("입니다.")
 
 # 취미 리스트에서 공백 제거
